@@ -12,30 +12,6 @@ import datetime
 import os
 import pickle as p
 
-class Rumour:
-    def __init__(self, name, desc, peeps, rtype):
-        self.name = name
-        self.desc = desc
-        self.peeps = peeps
-        self.score = 0
-        if rtype == "short":
-            self.dur = 2.0
-        elif rtype == "long":
-            self.dur = 5.0
-
-
-    def check(self):
-        if self.dur == 0:
-            if self.score in [-12, 12]:
-                print("The rumour settled favourably for {peeps[0].name if self.score < 1 else peeps[1].name}.")
-                peeps[0].reps += score * -10
-                peeps[1].reps += score * 10
-                return "over"
-
-    def keepgoing(self):
-        self.dur -= 0.5
-        check(self)
-
 class Obj:
     def __init__(self, name, uses):
         self.name = name
@@ -136,7 +112,7 @@ def goforth(player, asleep, time):
         player.reps = 120
     if player.rept > 120:
         player.rept = 120
-
+    
     if "tired" in player.traits and player.gradepad > -3:
         player.gradepad -= 1
 
@@ -236,7 +212,6 @@ def main(): # start a game from another program
         coffeenum = 0
         bjnum = 0
         time = 8.5
-        rumours = []
 
         playername = input("What is your name? ")
         
@@ -286,7 +261,6 @@ def main(): # start a game from another program
             coffeenum = p.load(savefiletouse)
             bjnum = p.load(savefiletouse)
             time = p.load(savefiletouse)
-            rumours = p.load(savefiletouse)
     
             
     avery = Player("avery", [], "cafe", [])
@@ -311,15 +285,7 @@ def main(): # start a game from another program
             
             elif (cmd[0] == "go") and (cmd[1] in ["c", "cafe", "café"]) and (player.loc != "cafe") and (player.loc not in ["math"]):
                 player.loc = "cafe"
-                rumourchance = 0
-                if rumourchance == 1:
-                    say("\"What the hell is this coffee?\"")
-                    say("\"Let me speak to your manager!\"")
-                    t.sleep(1)
-                    say("\"Please calm do--\"")
-                    say("\"I am not calming down until you are calming down!\"")
-                    averyvscharen = Rumour("Avery vs. Charen", "Who is right?", [avery, charen], "long")
-
+                
 
             elif cmd[0] == "go" and cmd[1] in ["m", "main"] and player.loc != "main":
                 player.loc = "main"
@@ -480,7 +446,7 @@ def main(): # start a game from another program
                     print(player.bux)
                 elif cmd[1] in ["w", "wkh", "wakinghours"]:
                     print(player.wakinghours)
-
+                
             elif cmd[0] in ["q", "quit", "exit"]:
                 sys.exit()
 
@@ -495,7 +461,6 @@ def main(): # start a game from another program
                         p.dump(time, savefile, p.HIGHEST_PROTOCOL)
                         p.dump(coffeenum, savefile, p.HIGHEST_PROTOCOL)
                         p.dump(bjnum, savefile, p.HIGHEST_PROTOCOL)
-                        p.dump(rumours, savefile, p.HIGHEST_PROTOCOL)
 
                         
                         savefile.close()
