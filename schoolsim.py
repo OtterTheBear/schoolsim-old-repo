@@ -248,8 +248,7 @@ def main(): # start a game from another program
         if os.name == "posix":
             saves = os.popen("ls -1r saves/").read().split("\n")
         elif os.name == "nt":
-            print(os.popen("dir /-O saves\\").read())
-            saves = os.popen("dir /-O saves\\").read().split("\n")[:-2][7:]
+            saves = os.popen("dir /-O /B saves\\").read().split("\n")
             for x in saves:
                 x = x[38:]
                 print(x)
