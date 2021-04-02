@@ -143,7 +143,7 @@ def goforth(player, asleep, time):
 
     if (player.loc in ["cafe", "lib", "main"]) and (time >= 8.5) and (time <= 15):
         player.rept -= 10
-        if player.rept == 0:
+        if player.rept <= 0:
             say("\"HEY! What are you doing out of class again?\"")
             t.sleep(3)
             say("\"Your actions have convinced us that you do not want to go here.\"")
